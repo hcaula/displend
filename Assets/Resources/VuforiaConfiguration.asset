@@ -22,27 +22,27 @@ MonoBehaviour:
     cameraDirection: 0
     mirrorVideoBackground: 0
     version: 7.5.20
-    eulaAccepted: 0
+    eulaAccepted: 1
   digitalEyewear:
     cameraOffset: 0.06
     distortionRenderingLayer: 31
-    eyewearType: 0
+    eyewearType: 2
     stereoFramework: 0
     seeThroughConfiguration: 0
-    viewerName: 
-    viewerManufacturer: 
-    useCustomViewer: 0
+    viewerName: VR Goggles
+    viewerManufacturer: Merge
+    useCustomViewer: 1
     customViewer:
-      Version: 0
-      Name: 
-      Manufacturer: 
-      ButtonType: 0
-      ScreenToLensDistance: 0
-      InterLensDistance: 0
-      TrayAlignment: 0
+      Version: 1
+      Name: VR Box
+      Manufacturer: VR Box
+      ButtonType: 1
+      ScreenToLensDistance: 0.044
+      InterLensDistance: 0.061
+      TrayAlignment: 1
       LensCenterToTrayDistance: 0
-      DistortionCoefficients: {x: 0, y: 0}
-      FieldOfView: {x: 0, y: 0, z: 0, w: 0}
+      DistortionCoefficients: {x: 0.1, y: 0.02}
+      FieldOfView: {x: 50, y: 50, z: 50, w: 50}
       ContainsMagnet: 0
   videoBackground:
     clippingMode: 0
