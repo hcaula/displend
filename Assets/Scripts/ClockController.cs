@@ -16,6 +16,6 @@ public class ClockController : MonoBehaviour
     }
     void Update()
     {
-        clock.text = DateTime.Now.ToString("hh:mm tt");
+        clock.text = DateTime.Now.ToString("hh:mm:ss tt");
     }
 }
