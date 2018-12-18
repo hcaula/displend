@@ -23,8 +23,6 @@ public class SpotifyController : MonoBehaviour
     public Text trackName;
     public Text artistName;
     public Text albumName;
-    public Text beginTime;
-    public Text endTime;
     #endregion
 
     void Start()
@@ -156,7 +154,6 @@ public class SpotifyController : MonoBehaviour
 
         /* Setting the current value of the progress bar */
         slider.value = item.progress_ms;
-        beginTime.text = MillisecondsFormat(item.progress_ms);
 
         /* Check to see if track has changed */
         if (trackName.text != track.name)
@@ -166,7 +163,6 @@ public class SpotifyController : MonoBehaviour
 
             /* Setting the max value of the progress bar */
             slider.maxValue = track.duration_ms;
-            endTime.text = MillisecondsFormat(track.duration_ms);
 
             /* If album is a new one, download image and change image */
             if (track.album.name != albumName.text)
@@ -197,18 +193,6 @@ public class SpotifyController : MonoBehaviour
         DateTime expDate = System.DateTime.Now.AddSeconds(spotifyToken.expires_in);
         string binaryDate = expDate.ToBinary().ToString();
         PlayerPrefs.SetString("expiration_date", binaryDate);
-    }
-
-    string MillisecondsFormat(int milliseconds)
-    {
-        int secondsLeft = (int)milliseconds / 1000;
-        int minutes = (int)secondsLeft / 60;
-        int seconds = secondsLeft - (minutes * 60);
-
-        string secStr = seconds + "";
-        if (seconds < 10) secStr = "0" + secStr;
-
-        return minutes + ":" + secStr;
     }
 
     bool TokenHasExpired()
