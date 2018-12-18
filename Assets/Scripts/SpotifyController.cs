@@ -19,6 +19,8 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
     private UnityEngine.UI.Image image;
     private TrackableBehaviour mTrackableBehaviour;
     private Animator animator;
+    private Animator clockAnimator;
+    private Animator displendAnimator;
     #endregion
 
     #region Public attributes
@@ -40,12 +42,14 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
         }
 
         animator = GameObject.Find("Spotify").GetComponent<Animator>();
+        clockAnimator = GameObject.Find("Clock").GetComponent<Animator>();
+        displendAnimator = GameObject.Find("displend_logo").GetComponent<Animator>();
     }
 
     void Update()
     {
         /* If we're not getting track info and it's not on cooldown period, get track info */
-        if (!requestingTrackInfo) StartCoroutine(GetTrackInfo()); 
+        if (!requestingTrackInfo) StartCoroutine(GetTrackInfo());
     }
 
     IEnumerator GetTrackInfo()
@@ -161,34 +165,37 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
     void ExtractTrack(string response)
     {
         SpotifyItem item = SpotifyItem.CreateFromJSON(response);
-        SpotifyTrack track = item.item;
 
-        /* Setting the current value of the progress bar */
-        slider.value = item.progress_ms;
-
-        /* Check to see if track has changed */
-        if (trackName.text != track.name)
-        {
-            trackName.text = track.name;
-            artistName.text = "by " + track.artists[0].name;
-
-            /* Setting the max value of the progress bar */
-            slider.maxValue = track.duration_ms;
-
-            /* If album is a new one, download image and change image */
-            if (track.album.name != albumName.text)
-            {
-                albumName.text = track.album.name;
-                StartCoroutine(DownloadAlbumImage(track.album.images));
-            }
-
-        }
         /* If no track is being listened */
-        else if (track == null)
+        if (item == null)
         {
             trackName.text = "No track selected";
             albumName.text = "";
             artistName.text = "";
+        }
+        else
+        {
+            SpotifyTrack track = item.item;
+
+            /* Setting the current value of the progress bar */
+            slider.value = item.progress_ms;
+
+            /* Check to see if track has changed */
+            if (trackName.text != track.name)
+            {
+                trackName.text = track.name;
+                artistName.text = "by " + track.artists[0].name;
+
+                /* Setting the max value of the progress bar */
+                slider.maxValue = track.duration_ms;
+
+                /* If album is a new one, download image and change image */
+                if (track.album.name != albumName.text)
+                {
+                    albumName.text = track.album.name;
+                    StartCoroutine(DownloadAlbumImage(track.album.images));
+                }
+            }
         }
     }
 
@@ -224,11 +231,19 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
 
         if (newStatus == TrackableBehaviour.Status.DETECTED ||
             newStatus == TrackableBehaviour.Status.TRACKED ||
-            newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED) 
+            newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
+        {
             animator.SetBool("detected", true);
-        else if (previousStatus == TrackableBehaviour.Status.TRACKED && 
+            clockAnimator.SetBool("detected", true);
+            displendAnimator.SetBool("detected", true);
+        }
+        else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
                 newStatus == TrackableBehaviour.Status.NOT_FOUND)
-                animator.SetBool("detected", false);
+        {
+            animator.SetBool("detected", false);
+            clockAnimator.SetBool("detected", false);
+            displendAnimator.SetBool("detected", false);
+        }
     }
 }
 
