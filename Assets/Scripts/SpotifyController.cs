@@ -60,7 +60,7 @@ public class SpotifyController : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+                ExtractTrack(www.downloadHandler.text);
 
                 /* Wait the cooldown period */
                 yield return new WaitForSeconds(requestCooldown);
@@ -110,6 +110,12 @@ public class SpotifyController : MonoBehaviour
         }
     }
 
+    void ExtractTrack(string response)
+    {
+        SpotifyItem item = SpotifyItem.CreateFromJSON(response);
+        SpotifyTrack track = item.item;
+    }
+
     void SetToken(string response)
     {
         /* Creating object from JSON response */
@@ -137,6 +143,7 @@ public class SpotifyController : MonoBehaviour
 }
 
 #region JSON classes
+[System.Serializable]
 public class SpotifyToken
 {
     #region JSON Attributes
@@ -152,18 +159,75 @@ public class SpotifyToken
     }
 }
 
+[System.Serializable]
+public class SpotifyImage
+{
+    #region JSON Attributes
+    public int height;
+    public int width;
+    public string url;
+    #endregion
+
+    public static SpotifyImage CreateFromJSON(string jsonString)
+    {
+        return JsonUtility.FromJson<SpotifyImage>(jsonString);
+    }
+}
+
+[System.Serializable]
+public class SpotifyArtist
+{
+    #region JSON Attributes
+    public string name;
+    #endregion
+
+    public static SpotifyArtist CreateFromJSON(string jsonString)
+    {
+        return JsonUtility.FromJson<SpotifyArtist>(jsonString);
+    }
+}
+
+[System.Serializable]
+public class SpotifyAlbum
+{
+    #region JSON Attributes
+    public string name;
+    public SpotifyImage[] images;
+    #endregion
+
+    public static SpotifyAlbum CreateFromJSON(string jsonString)
+    {
+        return JsonUtility.FromJson<SpotifyAlbum>(jsonString);
+    }
+}
+
+[System.Serializable]
 public class SpotifyTrack
 {
     #region JSON Attributes
-    public string access_token;
-    public string token_type;
-    public string scope;
-    public int expires_in;
+    public SpotifyAlbum album;
+    public SpotifyArtist[] artists;
+    public string name;
+    public int duration_ms;
+    public bool is_playing;
     #endregion
 
     public static SpotifyTrack CreateFromJSON(string jsonString)
     {
         return JsonUtility.FromJson<SpotifyTrack>(jsonString);
+    }
+}
+
+[System.Serializable]
+public class SpotifyItem
+{
+    #region JSON Attributes
+    public SpotifyTrack item;
+    #endregion
+
+    public static SpotifyItem CreateFromJSON(string jsonString)
+    {
+        return JsonUtility.FromJson<SpotifyItem>(jsonString);
     }
 }
 #endregion
