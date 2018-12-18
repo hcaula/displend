@@ -138,7 +138,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 5937485}
-  m_LocalRotation: {x: 0.65657187, y: 0.26251373, z: 0.26251373, w: 0.65657187}
+  m_LocalRotation: {x: 0.656573, y: 0.26251078, z: 0.26251078, w: 0.656573}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.013545046, y: 0.01090161, z: 0.01288042}
   m_Children:
@@ -149,9 +149,10 @@ RectTransform:
   - {fileID: 460755404}
   - {fileID: 119665018}
   - {fileID: 1888204780}
+  - {fileID: 1873485329}
   m_Father: {fileID: 1017519626}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 133.58499, y: -90, z: -90}
+  m_LocalEulerAnglesHint: {x: 133.585, y: -90, z: -90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 4.4, y: 2.61}
@@ -749,6 +750,7 @@ MonoBehaviour:
   trackName: {fileID: 1853481258}
   artistName: {fileID: 2018587325}
   albumName: {fileID: 2086868663}
+  deviceName: {fileID: 1873485330}
 --- !u!114 &1017519628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,6 +1328,81 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1853481256}
   m_CullTransparentMesh: 0
+--- !u!1 &1873485328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1873485329}
+  - component: {fileID: 1873485331}
+  - component: {fileID: 1873485330}
+  m_Layer: 5
+  m_Name: Device
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1873485329
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1873485328}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4}
+  m_LocalScale: {x: 0.8588625, y: 0.85614276, z: 0.85918546}
+  m_Children: []
+  m_Father: {fileID: 5937486}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 542, y: -318}
+  m_SizeDelta: {x: 274, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1873485330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1873485328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.995283, b: 0.995283, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 99386323f9a1c4fc2af6ce14da9050f2, type: 3}
+    m_FontSize: 0
+    m_FontStyle: 2
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Listening on Henrique Ca\xFAla's iPhone"
+--- !u!222 &1873485331
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1873485328}
+  m_CullTransparentMesh: 0
 --- !u!1 &1888204779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,7 +1437,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 153.00002, y: -33.000004}
+  m_AnchoredPosition: {x: 153.00002, y: -27}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1888204781

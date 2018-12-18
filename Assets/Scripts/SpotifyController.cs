@@ -28,6 +28,7 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
     public Text trackName;
     public Text artistName;
     public Text albumName;
+    public Text deviceName;
     #endregion
 
     void Start()
@@ -172,6 +173,7 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
             trackName.text = "No track selected";
             albumName.text = "";
             artistName.text = "";
+            deviceName.text = "";
         }
         else
         {
@@ -179,6 +181,8 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
 
             /* Setting the current value of the progress bar */
             slider.value = item.progress_ms;
+
+            deviceName.text = "Listening on " + item.device.name;
 
             /* Check to see if track has changed */
             if (trackName.text != track.name)
@@ -307,6 +311,20 @@ public class SpotifyAlbum
 }
 
 [System.Serializable]
+public class SpotifyDevice
+{
+    #region JSON Attributes
+    public string name;
+    public string type;
+    #endregion
+
+    public static SpotifyDevice CreateFromJSON(string jsonString)
+    {
+        return JsonUtility.FromJson<SpotifyDevice>(jsonString);
+    }
+}
+
+[System.Serializable]
 public class SpotifyTrack
 {
     #region JSON Attributes
@@ -328,6 +346,7 @@ public class SpotifyItem
 {
     #region JSON Attributes
     public SpotifyTrack item;
+    public SpotifyDevice device;
     public int progress_ms;
     #endregion
 
