@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 460755406}
   - component: {fileID: 460755405}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Album cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

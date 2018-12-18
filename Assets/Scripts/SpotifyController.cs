@@ -15,6 +15,7 @@ public class SpotifyController : MonoBehaviour
     private bool refreshingToken = true;
     private bool requestingTrackInfo = false;
     private Slider slider;
+    private Image image;
     #endregion
 
     #region Public attributes
@@ -29,7 +30,7 @@ public class SpotifyController : MonoBehaviour
     void Start()
     {
         slider = GameObject.Find("Slider").GetComponent<Slider>();
-        slider.maxValue = 24;
+        image = GameObject.Find("Album cover").GetComponent<Image>();
     }
 
     void Update()
@@ -123,6 +124,31 @@ public class SpotifyController : MonoBehaviour
         }
     }
 
+    IEnumerator DownloadAlbumImage(SpotifyImage[] images)
+    {
+        /* Prioritize the highest resolution image */
+        SpotifyImage selected = images[0];
+        if (selected == null) selected = images[1];
+        if (selected == null) selected = images[2];
+
+        /* Download image */
+        string url = selected.url;
+        using (WWW www = new WWW(url))
+        {
+            /*  Wait for download to complete */
+            yield return www;
+
+            /* Create a texture in DXT1 format */
+            Texture2D texture = new Texture2D(www.texture.width, www.texture.height, TextureFormat.DXT1, false);
+
+            /* Assign the downloaded image to sprite */
+            www.LoadImageIntoTexture(texture);
+            Rect rec = new Rect(0, 0, texture.width, texture.height);
+            Sprite spriteToUse = Sprite.Create(texture, rec, new Vector2(0.5f, 0.5f), 100);
+            image.sprite = spriteToUse;
+        }
+    }
+
     void ExtractTrack(string response)
     {
         SpotifyItem item = SpotifyItem.CreateFromJSON(response);
@@ -131,18 +157,25 @@ public class SpotifyController : MonoBehaviour
         /* Setting the current value of the progress bar */
         slider.value = item.progress_ms;
         beginTime.text = MillisecondsFormat(item.progress_ms);
-        
+
         /* Check to see if track has changed */
         if (trackName.text != track.name)
         {
             trackName.text = track.name;
             artistName.text = "by " + track.artists[0].name;
-            albumName.text = track.album.name;
 
             /* Setting the max value of the progress bar */
             slider.maxValue = track.duration_ms;
             endTime.text = MillisecondsFormat(track.duration_ms);
-        } 
+
+            /* If album is a new one, download image and change image */
+            if (track.album.name != albumName.text)
+            {
+                albumName.text = track.album.name;
+                StartCoroutine(DownloadAlbumImage(track.album.images));
+            }
+
+        }
         /* If no track is being listened */
         else if (track == null)
         {
@@ -168,9 +201,9 @@ public class SpotifyController : MonoBehaviour
 
     string MillisecondsFormat(int milliseconds)
     {
-        int secondsLeft = (int) milliseconds/1000;
-        int minutes = (int) secondsLeft/60;
-        int seconds = secondsLeft - (minutes*60);
+        int secondsLeft = (int)milliseconds / 1000;
+        int minutes = (int)secondsLeft / 60;
+        int seconds = secondsLeft - (minutes * 60);
 
         string secStr = seconds + "";
         if (seconds < 10) secStr = "0" + secStr;
