@@ -21,6 +21,7 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
     private Animator animator;
     private Animator clockAnimator;
     private Animator displendAnimator;
+    private bool isPaused = false;
     #endregion
 
     #region Public attributes
@@ -140,6 +141,7 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
 
     IEnumerator DownloadAlbumImage(SpotifyImage[] images)
     {
+        print("Downloading image");
         /* Prioritize the highest resolution image */
         SpotifyImage selected = images[0];
         if (selected == null) selected = images[1];
@@ -186,6 +188,17 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
             slider.value = item.progress_ms;
 
             deviceName.text = "Listening on " + item.device.name;
+
+            if (!item.is_playing && !isPaused) 
+            {
+                animator.SetBool("paused", true);
+                isPaused = true;
+            }
+            else if (item.is_playing && isPaused) 
+            {
+                animator.SetBool("paused", false);
+                isPaused = false;
+            }
 
             /* Check to see if track has changed */
             if (trackName.text != track.name)
@@ -354,6 +367,7 @@ public class SpotifyItem
     public SpotifyTrack item;
     public SpotifyDevice device;
     public int progress_ms;
+    public bool is_playing;
     #endregion
 
     public static SpotifyItem CreateFromJSON(string jsonString)
