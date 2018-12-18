@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine;
 using UnityEngine.UI;
+using Vuforia;
 
-public class SpotifyController : MonoBehaviour
+public class SpotifyController : MonoBehaviour, ITrackableEventHandler
 {
 
     #region Private attributes
@@ -15,7 +16,9 @@ public class SpotifyController : MonoBehaviour
     private bool refreshingToken = true;
     private bool requestingTrackInfo = false;
     private Slider slider;
-    private Image image;
+    private UnityEngine.UI.Image image;
+    private TrackableBehaviour mTrackableBehaviour;
+    private Animator animator;
     #endregion
 
     #region Public attributes
@@ -28,13 +31,21 @@ public class SpotifyController : MonoBehaviour
     void Start()
     {
         slider = GameObject.Find("Slider").GetComponent<Slider>();
-        image = GameObject.Find("Album cover").GetComponent<Image>();
+        image = GameObject.Find("Album cover").GetComponent<UnityEngine.UI.Image>();
+
+        mTrackableBehaviour = GetComponent<TrackableBehaviour>();
+        if (mTrackableBehaviour)
+        {
+            mTrackableBehaviour.RegisterTrackableEventHandler(this);
+        }
+
+        animator = GameObject.Find("Spotify").GetComponent<Animator>();
     }
 
     void Update()
     {
         /* If we're not getting track info and it's not on cooldown period, get track info */
-        if (!requestingTrackInfo) StartCoroutine(GetTrackInfo());
+        if (!requestingTrackInfo) StartCoroutine(GetTrackInfo()); 
     }
 
     IEnumerator GetTrackInfo()
@@ -204,6 +215,20 @@ public class SpotifyController : MonoBehaviour
 
         /* Returns true if expDate is earlier than current */
         return DateTime.Compare(expDate, current) < 0;
+    }
+
+    public void OnTrackableStateChanged(
+                                    TrackableBehaviour.Status previousStatus,
+                                    TrackableBehaviour.Status newStatus)
+    {
+
+        if (newStatus == TrackableBehaviour.Status.DETECTED ||
+            newStatus == TrackableBehaviour.Status.TRACKED ||
+            newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED) 
+            animator.SetBool("detected", true);
+        else if (previousStatus == TrackableBehaviour.Status.TRACKED && 
+                newStatus == TrackableBehaviour.Status.NOT_FOUND)
+                animator.SetBool("detected", false);
     }
 }
 

@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 5937489}
   - component: {fileID: 5937488}
   - component: {fileID: 5937487}
+  - component: {fileID: 5937490}
   m_Layer: 5
   m_Name: Spotify
   m_TagString: Untagged
@@ -138,8 +139,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 5937485}
   m_LocalRotation: {x: 0.65657187, y: 0.26251373, z: 0.26251373, w: 0.65657187}
-  m_LocalPosition: {x: 0, y: 0, z: 0.02}
-  m_LocalScale: {x: 0.013545046, y: 0.0109016085, z: 0.012880417}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.013545046, y: 0.01090161, z: 0.01288042}
   m_Children:
   - {fileID: 1578926985}
   - {fileID: 1853481257}
@@ -153,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 133.58499, y: -90, z: -90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.4, y: 0}
+  m_AnchoredPosition: {x: 4.4, y: 2.61}
   m_SizeDelta: {x: 667, y: 337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5937487
@@ -213,6 +214,51 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!95 &5937490
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 5937485}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7da3062945cdb4907a2ce146cb161e91, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!21 &56630644
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 'marker_1Material
+
+    12130'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: eaaf409d492540ff806f44a5f605b39e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
 --- !u!1 &119665017
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,19 +437,19 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &289796621
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 289796620}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &289796623
 MonoBehaviour:
@@ -416,37 +462,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592552bd2eb4945a297e4eccb2f539c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requestCooldown: 0.5
+  requestCooldown: 2
   trackName: {fileID: 1853481258}
   artistName: {fileID: 2018587325}
   albumName: {fileID: 2086868663}
---- !u!21 &350892556
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 'marker_1Material
-
-    25912'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: eaaf409d492540ff806f44a5f605b39e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
 --- !u!1 &460755403
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,7 +608,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1009156664
 GameObject:
@@ -673,6 +692,7 @@ GameObject:
   - component: {fileID: 1017519623}
   - component: {fileID: 1017519622}
   - component: {fileID: 1017519621}
+  - component: {fileID: 1017519627}
   m_Layer: 0
   m_Name: ImageTarget
   m_TagString: Untagged
@@ -686,7 +706,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1017519620}
-  m_Mesh: {fileID: 1028097475}
+  m_Mesh: {fileID: 1160076863}
 --- !u!23 &1017519622
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -702,7 +722,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 350892556}
+  - {fileID: 56630644}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -779,12 +799,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &1028097475
+--- !u!114 &1017519627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1017519620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592552bd2eb4945a297e4eccb2f539c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requestCooldown: 2
+  trackName: {fileID: 1853481258}
+  artistName: {fileID: 2018587325}
+  albumName: {fileID: 2086868663}
+--- !u!43 &1160076863
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ImageTargetMesh25902
+  m_Name: ImageTargetMesh12120
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1689,7 +1724,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2118832689
 GameObject:
