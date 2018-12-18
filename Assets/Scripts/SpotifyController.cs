@@ -160,6 +160,8 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
             Rect rec = new Rect(0, 0, texture.width, texture.height);
             Sprite spriteToUse = Sprite.Create(texture, rec, new Vector2(0.5f, 0.5f), 100);
             image.sprite = spriteToUse;
+
+            animator.SetBool("loading", false);
         }
     }
 
@@ -179,6 +181,7 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
         {
             SpotifyTrack track = item.item;
 
+
             /* Setting the current value of the progress bar */
             slider.value = item.progress_ms;
 
@@ -197,6 +200,9 @@ public class SpotifyController : MonoBehaviour, ITrackableEventHandler
                 if (track.album.name != albumName.text)
                 {
                     albumName.text = track.album.name;
+
+                    animator.SetBool("loading", true);
+                    
                     StartCoroutine(DownloadAlbumImage(track.album.images));
                 }
             }
