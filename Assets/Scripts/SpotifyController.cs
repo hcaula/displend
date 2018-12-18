@@ -14,6 +14,7 @@ public class SpotifyController : MonoBehaviour
     private string uri = "https://accounts.spotify.com/api/token";
     private bool refreshingToken = true;
     private bool requestingTrackInfo = false;
+    private Slider slider;
     #endregion
 
     #region Public attributes
@@ -21,7 +22,15 @@ public class SpotifyController : MonoBehaviour
     public Text trackName;
     public Text artistName;
     public Text albumName;
+    public Text beginTime;
+    public Text endTime;
     #endregion
+
+    void Start()
+    {
+        slider = GameObject.Find("Slider").GetComponent<Slider>();
+        slider.maxValue = 24;
+    }
 
     void Update()
     {
@@ -118,6 +127,10 @@ public class SpotifyController : MonoBehaviour
     {
         SpotifyItem item = SpotifyItem.CreateFromJSON(response);
         SpotifyTrack track = item.item;
+
+        /* Setting the current value of the progress bar */
+        slider.value = item.progress_ms;
+        beginTime.text = MillisecondsFormat(item.progress_ms);
         
         /* Check to see if track has changed */
         if (trackName.text != track.name)
@@ -125,6 +138,10 @@ public class SpotifyController : MonoBehaviour
             trackName.text = track.name;
             artistName.text = "by " + track.artists[0].name;
             albumName.text = track.album.name;
+
+            /* Setting the max value of the progress bar */
+            slider.maxValue = track.duration_ms;
+            endTime.text = MillisecondsFormat(track.duration_ms);
         } 
         /* If no track is being listened */
         else if (track == null)
@@ -147,6 +164,18 @@ public class SpotifyController : MonoBehaviour
         DateTime expDate = System.DateTime.Now.AddSeconds(spotifyToken.expires_in);
         string binaryDate = expDate.ToBinary().ToString();
         PlayerPrefs.SetString("expiration_date", binaryDate);
+    }
+
+    string MillisecondsFormat(int milliseconds)
+    {
+        int secondsLeft = (int) milliseconds/1000;
+        int minutes = (int) secondsLeft/60;
+        int seconds = secondsLeft - (minutes*60);
+
+        string secStr = seconds + "";
+        if (seconds < 10) secStr = "0" + secStr;
+
+        return minutes + ":" + secStr;
     }
 
     bool TokenHasExpired()
@@ -228,7 +257,6 @@ public class SpotifyTrack
     public SpotifyArtist[] artists;
     public string name;
     public int duration_ms;
-    public int progress_ms;
     public bool is_playing;
     #endregion
 
@@ -243,6 +271,7 @@ public class SpotifyItem
 {
     #region JSON Attributes
     public SpotifyTrack item;
+    public int progress_ms;
     #endregion
 
     public static SpotifyItem CreateFromJSON(string jsonString)
