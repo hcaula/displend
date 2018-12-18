@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpotifyController : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class SpotifyController : MonoBehaviour
 
     #region Public attributes
     public float requestCooldown;
+    public Text trackName;
+    public Text artistName;
+    public Text albumName;
     #endregion
 
     void Update()
@@ -114,6 +118,21 @@ public class SpotifyController : MonoBehaviour
     {
         SpotifyItem item = SpotifyItem.CreateFromJSON(response);
         SpotifyTrack track = item.item;
+        
+        /* Check to see if track has changed */
+        if (trackName.text != track.name)
+        {
+            trackName.text = track.name;
+            artistName.text = "by " + track.artists[0].name;
+            albumName.text = track.album.name;
+        } 
+        /* If no track is being listened */
+        else if (track == null)
+        {
+            trackName.text = "No track selected";
+            albumName.text = "";
+            artistName.text = "";
+        }
     }
 
     void SetToken(string response)
@@ -209,6 +228,7 @@ public class SpotifyTrack
     public SpotifyArtist[] artists;
     public string name;
     public int duration_ms;
+    public int progress_ms;
     public bool is_playing;
     #endregion
 
